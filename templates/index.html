@@ -60,9 +60,9 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <div>
-      <link href="../static/css/index.css" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet" />
 
       <div class="home-container">
         <header class="navbar4-container navbar4-root-class-name">
@@ -80,7 +80,7 @@
               </nav>
               <div class="navbar4-buttons">
                 <a
-                  href="landing.html"
+                  href="{{ url_for('landing') }}"
                   class="navbar4-action1 thq-button-filled thq-button-animated"
                 >
                   <span class="thq-body-small">
@@ -89,7 +89,7 @@
                   </span>
                 </a>
                 <a
-                  href="landing1.html"
+                  href="{{ url_for('landing1') }}"
                   class="navbar4-action2 thq-button-outline thq-button-animated"
                 >
                   <span class="thq-body-small">

@@ -60,9 +60,9 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <div>
-      <link href="../static/css/landing1.css" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='css/landing1.css') }}" rel="stylesheet" />
 
       <div class="landing1-container">
         <header class="navbar4-container navbar4-root-class-name2">
@@ -76,7 +76,7 @@
               <nav class="navbar4-links">
                 <span class="navbar4-link1 thq-body-small thq-link">
                   <a
-                  href="index.html"
+                  href="{{ url_for('index') }}"
                   >
                 <span>InSummary</span>
               </span>
@@ -84,7 +84,7 @@
               </nav>
               <div class="navbar4-buttons">
                 <a
-                  href="landing.html"
+                  href="{{ url_for('landing') }}"
                   class="navbar4-action1 thq-button-filled thq-button-animated"
                 >
                   <span class="thq-body-small">
@@ -93,7 +93,7 @@
                   </span>
                 </a>
                 <a
-                  href="landing1.html"
+                  href="{{ url_for('landing1') }}"
                   class="navbar4-action2 thq-button-outline thq-button-animated"
                 >
                   <span class="thq-body-small">
@@ -171,7 +171,7 @@
           />
           <div id="recordingAnimation" class="recording-animation"></div>
         </div>
-        <script src="script.js"></script>
+        <script src="../static/js/landing1.js"></script>
         <div class="logos91-container thq-section-padding">
           <div class="logos91-max-width thq-section-max-width">
             <h2 class="logos91-text thq-heading-2">

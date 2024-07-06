@@ -6,10 +6,21 @@ from transcribe import *
 # current module (__name__) as argument.
 app = Flask(__name__)
 
+UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 # The route() function of the Flask class is a decorator, which tells the application which URL should call the associated function.
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
+
+@app.route('/landing1')
+def landing1():
+    return render_template('landing1.html')
 
 
 @app.route('/', methods=['POST'])
@@ -30,9 +41,9 @@ def upload_file():
         transcription_text = asyncio.run(transcribe_audio(audio_path))
         
         # Create a temporary text file for the transcription
-        with NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
+        with NamedTemporaryFile(delete=False, suffix='.txt', dir=UPLOAD_FOLDER) as tmp_file:
             tmp_file.write(transcription_text.encode('utf-8'))
-            tmp_filename = tmp_file.name
+            tmp_filename = os.path.basename(tmp_file.name)
         
         # Provide download link to the user
         download_link = url_for('download_file', filename=tmp_filename, _external=True)
@@ -45,7 +56,10 @@ def upload_file():
 
 @app.route('/download/<filename>')
 def download_file(filename):
-    return send_file(filename, as_attachment=True)
-
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        return "File not found", 404
 if __name__ == '__main__':
     app.run(debug=True)

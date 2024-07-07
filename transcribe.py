@@ -1,9 +1,9 @@
 import os
-import asyncio
 from deepgram import Deepgram, transcription
+from dotenv import load_dotenv
 
-
-DEEPGRAM_API_KEY = 'f96e8d1f1ed6467b4bdea295ff4c8b6cf923585a'
+load_dotenv()
+DEEPGRAM_API_KEY = os.getenv('DEEPGRAM_API_KEY')
 
 
 async def transcribe_audio(AUDIO_FILE_PATH):

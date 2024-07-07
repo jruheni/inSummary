@@ -1,0 +1,41 @@
+# Ignore .env files
+.env
+.env.local
+.env.*.local
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore Python virtual environment directory
+venv/
+env/
+
+# Ignore compiled files
+*.pyc
+__pycache__/
+
+# Ignore coverage reports
+coverage/
+*.cover
+*.coverage
+
+# Ignore build directories
+build/
+dist/
+*.egg-info/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore log files
+*.log
+
+# Ignore uploads directory
+uploads/

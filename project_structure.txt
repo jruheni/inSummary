@@ -1,0 +1,29 @@
+/inSummary
+├── base.py          # Flask server and routes
+├── transcribe.py    # Module containing transcription related classes and functions
+├── summarise.py     # Module containing summarization related classes and functions
+├── static/          # Directory for static files (CSS, JS, images)
+│   ├── css/
+│   │   └── style.css
+│   │   └── landing.css
+│   │   └── index.css
+│   │   └── landing1.css
+│   │   └── 404.css
+│   ├── js/
+│   │   └── landing.js
+│   │   └── index.js
+│   │   └── landing1.js
+│   └── images/
+│       ├── vecteezy_audio-recording-icon-on-transparent-background_199404162-200h.png
+│       ├── istock-1466243153-1500w.jpg
+│       └── istockphoto-1443156018-612x612-300h.jpg 
+│       ├── microphone-200h.png
+├── templates/       # HTML templates
+│   ├── index.html
+│   ├── landing.html
+│   └── landing1.html
+│   ├── 404.html
+└── uploads/         # Temporary directory for file uploads
+│   └── Bueller-Life-moves-pretty-fast.wav
+│   └── Ghanas Kwame Nkrumah and the dream of uniting Africa.mp3
+│   └── trial.txt

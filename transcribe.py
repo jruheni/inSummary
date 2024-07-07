@@ -1,6 +1,6 @@
 import os
 import asyncio
-from deepgram import Deepgram
+from deepgram import Deepgram, transcription
 
 
 DEEPGRAM_API_KEY = 'f96e8d1f1ed6467b4bdea295ff4c8b6cf923585a'
@@ -37,3 +37,23 @@ async def transcribe_audio(AUDIO_FILE_PATH):
     except Exception as e:
         print(f"Exception: {e}")
 
+async def transcribe_audio_stream(audio_data):
+    try:
+        options = {
+            'model': 'nova',
+            'smart_format': True,
+            'summarize': 'v2'
+        }
+
+        # Call the transcribe method for streaming audio
+        response = await transcription.live({
+            'buffer': audio_data,
+            'mimetype': 'audio/wav'
+        }, options)
+        
+        transcript = response['results']['channels'][0]['alternatives'][0]['transcript']
+        return transcript
+
+    except Exception as e:
+        print(f"Exception: {e}")
+        return None

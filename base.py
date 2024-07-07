@@ -1,15 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 from tempfile import NamedTemporaryFile
+from flask_socketio import SocketIO, emit
 from summary import *
 from transcribe import *
+import os
+import asyncio
 
-# current module (__name__) as argument.
+# Create Flask app and SocketIO instance
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# The route() function of the Flask class is a decorator, which tells the application which URL should call the associated function.
+# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,7 +26,6 @@ def landing():
 def landing1():
     return render_template('landing1.html')
 
-
 @app.route('/', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -34,7 +37,7 @@ def upload_file():
     
     try:
         # Save the uploaded audio file temporarily
-        audio_path = os.path.join(app.root_path, 'uploads', file.filename)
+        audio_path = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(audio_path)
         
         # Transcribe audio

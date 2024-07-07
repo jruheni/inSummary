@@ -152,6 +152,7 @@
           </header>
         </header>
         <div class="hero31-header9">
+          <img src="../static/images/digital-marketing-podcasts.webp" class="hero31-header9-image">
           <div class="hero31-content thq-section-padding">
             <div class="hero31-max-width thq-section-max-width thq-flex-row">
               <div class="hero31-column">
@@ -161,17 +162,20 @@
               </div>
             </div>
           </div>
+        
+          <div class="landing1">
+            <img
+              alt="image"
+              src="../static/images/microphone-200h.png"
+              class="landing1-image"
+              id="recordButton"
+            />
+            <div id="recordingAnimation" class="recording-animation"></div>
+          </div>
+          <script src="{{ url_for('static', filename='js/landing1.js') }}"></script>
+          <div id="transcriptionBox" class="transcription-box"></div>
+            <button id="downloadButton" style="display: block;" class="navbar4-action1 thq-button-filled thq-button-animated">Download Transcript</button>
         </div>
-        <div class="landing1">
-          <img
-            alt="image"
-            src="../static/images/microphone-200h.png"
-            class="landing1-image"
-            id="recordButton"
-          />
-          <div id="recordingAnimation" class="recording-animation"></div>
-        </div>
-        <script src="../static/js/landing1.js"></script>
         <div class="logos91-container thq-section-padding">
           <div class="logos91-max-width thq-section-max-width">
             <h2 class="logos91-text thq-heading-2">
@@ -549,9 +553,6 @@
         </footer>
       </div>
     </div>
-    <script
-      src="../static/js/landing1.js"
-    ></script>
-    <script src="libmp3lame.min.js"></script>
+    <script src="{{ url_for('static', filename='js/landing1.js') }}"></script>
   </body>
 </html>

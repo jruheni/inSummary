@@ -9,7 +9,6 @@ InSummary is a web application that allows users to record audio, transcribe it 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [License](#license)
 
 ## Features
 

@@ -1,6 +1,6 @@
-# InSummary
+# inSummary
 
-InSummary is a web application that allows users to record audio, transcribe it in real-time using Deepgram's API, and download the transcribed text. The application uses Flask for the backend, WebSockets for real-time communication, and vanilla JavaScript for frontend interactivity.
+inSummary is a web application that allows users to record audio, transcribe it in real-time using Deepgram's API, and download the transcribed text. The application uses Flask for the backend, WebSockets for real-time communication, and vanilla JavaScript for frontend interactivity.
 
 ## Table of Contents
 
@@ -13,6 +13,7 @@ InSummary is a web application that allows users to record audio, transcribe it 
 ## Features
 
 - Record audio directly from the browser.
+- Summarise transcripted text
 - Real-time transcription of audio using Deepgram's API.
 - Display transcription in a user-friendly interface.
 - Download transcribed text as a .txt file.
@@ -63,6 +64,11 @@ Before you begin, ensure you have met the following requirements:
     ```bash
     flask run
     ```
+    or
+   
+   ```
+   python3.9 base.py
+   ```
 
 ## Usage
 
@@ -73,32 +79,6 @@ Before you begin, ensure you have met the following requirements:
 
 ## Project Structure
 
-/inSummary
-├── base.py          # Flask server and routes
-├── transcribe.py    # Module containing transcription related classes and functions
-├── summarise.py     # Module containing summarization related classes and functions
-├── static/          # Directory for static files (CSS, JS, images)
-│   ├── css/
-│   │   └── style.css
-│   │   └── landing.css
-│   │   └── index.css
-│   │   └── landing1.css
-│   │   └── 404.css
-│   ├── js/
-│   │   └── landing.js
-│   │   └── index.js
-│   │   └── landing1.js
-│   └── images/
-│       ├── vecteezy_audio-recording-icon-on-transparent-background_199404162-200h.png
-│       ├── istock-1466243153-1500w.jpg
-│       └── istockphoto-1443156018-612x612-300h.jpg 
-│       ├── microphone-200h.png
-├── templates/       # HTML templates
-│   ├── index.html
-│   ├── landing.html
-│   └── landing1.html
-│   ├── 404.html
-└── uploads/         # Temporary directory for file uploads
-│   └── Bueller-Life-moves-pretty-fast.wav
-│   └── Ghanas Kwame Nkrumah and the dream of uniting Africa.mp3
-│   └── trial.txt
+![image](https://github.com/jruheni/inSummary/assets/135020620/9391d9b5-859f-4d02-8677-dc6c456b38cf)
+
+

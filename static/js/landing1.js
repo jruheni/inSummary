@@ -18,37 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function startRecording() {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-      const DEEPGRAM_API_KEY = 'f96e8d1f1ed6467b4bdea295ff4c8b6cf923585a';
+    fetch('/api/key')
+        .then(response => response.json())
+        .then(data => {
+            const DEEPGRAM_API_KEY = data.key;
+            navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+                mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
 
-      socket = new WebSocket('wss://api.deepgram.com/v1/listen', ['token', DEEPGRAM_API_KEY]);
+                socket = new WebSocket('wss://api.deepgram.com/v1/listen', ['token', DEEPGRAM_API_KEY]);
 
-      socket.onopen = () => {
-        console.log('WebSocket connection established');
-        mediaRecorder.addEventListener('dataavailable', event => {
-          socket.send(event.data);
+                socket.onopen = () => {
+                  console.log('WebSocket connection established');
+                  mediaRecorder.addEventListener('dataavailable', event => {
+                      socket.send(event.data);
+                  });
+                  mediaRecorder.start(250);
+                  recordingAnimation.style.display = 'block';
+                };
+
+                socket.onmessage = (message) => {
+                    const received = JSON.parse(message.data);
+                    const transcript = received.channel.alternatives[0].transcript;
+                    transcriptionText += transcript + " ";
+                    transcriptionBox.textContent = transcriptionText;
+                    downloadButton.style.display = 'block';
+                };
+
+                socket.onclose = () => {
+                  console.log('WebSocket connection closed');
+                  recordingAnimation.style.display = 'none';
+                };
+            }).catch(error => {
+                console.error('Error accessing microphone:', error);
+            });
         });
-        mediaRecorder.start(250);
-        recordingAnimation.style.display = 'block';
-      };
-
-      socket.onmessage = (message) => {
-        const received = JSON.parse(message.data);
-        const transcript = received.channel.alternatives[0].transcript;
-        transcriptionText += transcript + " ";
-        transcriptionBox.textContent = transcriptionText;
-        downloadButton.style.display = 'block';
-      };
-
-      socket.onclose = () => {
-        console.log('WebSocket connection closed');
-        recordingAnimation.style.display = 'none';
-      };
-    }).catch(error => {
-      console.error('Error accessing microphone:', error);
-    });
-  }
+}
 
   downloadButton.addEventListener('click', () => {
     const blob = new Blob([transcriptionText], { type: 'text/plain' });

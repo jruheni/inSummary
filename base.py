@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from tempfile import NamedTemporaryFile
 from flask_socketio import SocketIO, emit
 from summary import *
@@ -12,6 +12,9 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Routes
 @app.route('/')
@@ -56,6 +59,11 @@ def upload_file():
     
     except Exception as e:
         return f"An error occurred: {e}"
+
+@app.route('/api/key', methods=['GET'])
+def get_key():
+    return jsonify({'key': os.getenv('DEEPGRAM_API_KEY')})
+
 
 @app.route('/download/<filename>')
 def download_file(filename):

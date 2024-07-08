@@ -52,8 +52,13 @@ Before you begin, ensure you have met the following requirements:
 
 4. Set up environment variables:
 
-    - Create a `.env` file in the root directory.
-    - Add your Deepgram API key:
+    - Create a `.env` file by copying the `.env.example` file:
+
+        ```bash
+        cp .env.example .env
+        ```
+
+    - Add your Deepgram API key in the .env file:
 
         ```plaintext
         DEEPGRAM_API_KEY=your_deepgram_api_key

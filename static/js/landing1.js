@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let mediaRecorder;
   let socket;
   let transcriptionText = "";
+  let stopTimeout;
 
   recordButton.addEventListener('click', () => {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   mediaRecorder.addEventListener('dataavailable', event => {
                       socket.send(event.data);
                   });
-                  mediaRecorder.start(250);
+                  mediaRecorder.start(100);
                   recordingAnimation.style.display = 'block';
                 };
 
@@ -42,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     transcriptionText += transcript + " ";
                     transcriptionBox.textContent = transcriptionText;
                     downloadButton.style.display = 'block';
+
+                     // Set timeout to stop recording after 10 minutes
+                    stopTimeout = setTimeout(stopRecording, 600000); // 10 minutes = 600000 milliseconds
                 };
 
                 socket.onclose = () => {
@@ -52,6 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error accessing microphone:', error);
             });
         });
+}
+
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+      socket.close();
+      clearTimeout(stopTimeout);
+      recordingAnimation.style.display = 'none';
+    }
 }
 
   downloadButton.addEventListener('click', () => {

@@ -149,6 +149,7 @@
   width: 100%;
   height: 752px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   background-size: cover;
   justify-content: center;
@@ -156,9 +157,10 @@
   background-position: center;
 }
 .hero3-button {
-  width: 710px;
+  width: fit-content; 
   height: 121px;
   justify-content: center;
+  margin: 10px 0; /* Adds space between the buttons */
   border-top-left-radius: var(--dl-radius-radius-cardradius);
   border-top-right-radius: var(--dl-radius-radius-cardradius);
   border-bottom-left-radius: var(--dl-radius-radius-cardradius);

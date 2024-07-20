@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 from tempfile import NamedTemporaryFile
 from flask_socketio import SocketIO, emit
-from summary import *
+from transformers import pipeline
 from transcribe import *
 import os
 import asyncio
@@ -29,8 +29,8 @@ def landing():
 def landing1():
     return render_template('landing1.html')
 
-@app.route('/', methods=['POST'])
-def upload_file():
+@app.route('/transcript', methods=['POST'])
+def upload_transcript_file():
     if 'file' not in request.files:
         return redirect(request.url)
     
@@ -56,6 +56,40 @@ def upload_file():
         
         # Render the template with transcription result and download link
         return render_template('upload.html', transcription=transcription_text, download_link=download_link)
+    
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+@app.route('/summary', methods=['POST'])
+def upload_summary_file():
+    if 'file' not in request.files:
+        return redirect(request.url)
+    
+    file = request.files['file']
+    if file.filename == '':
+        return redirect(request.url)
+    
+    try:
+        # Save the uploaded audio file temporarily
+        audio_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(audio_path)
+        
+        summarizer = pipeline('summarization')
+
+        # Transcribe audio
+        transcription_text = asyncio.run(transcribe_audio(audio_path))
+
+        summary_text = summarizer(transcription_text, max_length=400, min_length=60, do_sample=False)
+
+        with NamedTemporaryFile(delete=False, suffix='.txt', dir=UPLOAD_FOLDER) as summ_file:
+            summ_file.write(summary_text.encode('utf-8'))
+            summ_filename = os.path.basename(summ_file.name)
+
+        # Provide download link to the user
+        download_link = url_for('download_file', filename=summ_filename, _external=True)
+        
+        # Render the template with summary result and download link
+        return render_template('upload.html', summary=summary_text, download_link=download_link)
     
     except Exception as e:
         return f"An error occurred: {e}"

@@ -154,15 +154,24 @@
         </header>
         <div class="hero3-header9">
           <div class="hero3-placeholder-image thq-img-ratio-16-9">
-              <button class="hero3-button thq-button-filled" id="uploadButton">
+              <button class="hero3-button thq-button-filled" id="uploadButton1">
                 <span class="hero3-text thq-body-small">
-                  <span>Upload an Audio File</span>
+                  <span>Full Audio Transcript </span>
                 </span>
               </button>
-              <form id="uploadForm" action="/" method="POST" enctype="multipart/form-data" >
+              <form id="uploadForm" action="/transcript" method="POST" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="file" style="display: none;" accept="audio/*">
+              </form>
+              <button class="hero3-button thq-button-filled" id="uploadButton2">
+                <span class="hero3-text thq-body-small">
+                  <span>Summarised Audio Transcript</span>
+                </span>
+              </button>
+              <form id="uploadForm" action="/summary" method="POST" enctype="multipart/form-data">
                 <input type="file" id="fileInput" name="file" style="display: none;" accept="audio/*">
               </form>
           </div>
+        </div>
         <div class="logos9-container thq-section-padding">
           <div class="logos9-max-width thq-section-max-width">
             <h2 class="logos9-text thq-heading-2">
